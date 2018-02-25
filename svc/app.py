@@ -1,6 +1,6 @@
 from chalice import Chalice
-from chalicelib.methods.get_images import get_images
-from chalicelib.methods.post_image import post_image
+from chalicelib.methods.get_images import get_images, get_image_item
+from chalicelib.methods.post_image import post_image, put_image_item
 
 app = Chalice(app_name='image-api')
 
@@ -21,24 +21,33 @@ def images():
         return post_image(request)
 
 
+@app.route('/v1/image/{id}', methods=["GET", "PUT"])
+def image_metadata(image_id):
+    """
+    Routing logic for images  retrieval and post
+    :return:
+    """
+    request = app.current_request
+
+    if request.method == "GET":
+        app.log.debug("Getting Images")
+        return get_image_item(request, image_id)
+    if request.method == "PUT":
+        app.log.debug("Upload image")
+        return put_image_item(request, image_id)
 
 
-# The view function above will return {"hello": "world"}
-# whenever you make an HTTP GET request to '/'.
-#
-# Here are a few more examples:
-#
-# @app.route('/hello/{name}')
-# def hello_name(name):
-#    # '/hello/james' -> {"hello": "james"}
-#    return {'hello': name}
-#
-# @app.route('/users', methods=['POST'])
-# def create_user():
-#     # This is the JSON body the user sent in their POST request.
-#     user_as_json = app.current_request.json_body
-#     # We'll echo the json body back to the user in a 'user' key.
-#     return {'user': user_as_json}
-#
-# See the README documentation for more examples.
-#
+@app.route('/v1/image/{id}/data', methods=["GET"])
+def image_data(image_id):
+    """
+    Routing logic for images  retrieval and post
+    :return:
+    """
+    request = app.current_request
+
+    if request.method == "GET":
+        app.log.debug("Getting Images")
+        return get_image_item(request, image_id)
+
+
+
