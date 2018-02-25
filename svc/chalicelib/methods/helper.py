@@ -19,3 +19,7 @@ def get_s3_resource():
     AWS_ACCESS_KEY = ""
     AWS_SECRET_KEY = ""
     return boto3.client("s3", AWS_ACCESS_KEY, AWS_SECRET_KEY)
+
+
+def crop_image(image):
+    pass

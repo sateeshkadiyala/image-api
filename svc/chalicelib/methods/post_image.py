@@ -2,6 +2,8 @@ from chalicelib.methods.helper import get_s3_resource
 from chalicelib.methods.put_item import put_images_item
 import uuid, datetime
 from collections import defaultdict
+from chalice import ChaliceViewError
+
 
 BUCKET = "S3_BUCKET"
 
@@ -47,7 +49,7 @@ def upload_file_to_s3(file, metadata):
         put_images_item(metadata)
 
     except Exception:
-        raise Exception("Unable to upload image")
+        raise ChaliceViewError("Unable to upload image")
 
 
 def build_metadata(body):

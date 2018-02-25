@@ -1,6 +1,6 @@
 from chalice import Chalice
 from chalicelib.methods.get_images import get_images, get_image_item
-from chalicelib.methods.post_image import post_image, put_image_item
+from chalicelib.methods.post_image import put_images_item, post_image
 
 app = Chalice(app_name='image-api')
 
@@ -14,10 +14,10 @@ def images():
     request = app.current_request
 
     if request.method == "GET":
-        app.log.debug("Getting Images")
+        app.log.debug("Getting All Images Metadata")
         return get_images(request)
     if request.method == "POST":
-        app.log.debug("Upload image")
+        app.log.debug("Upload an image")
         return post_image(request)
 
 
@@ -30,23 +30,23 @@ def image_metadata(image_id):
     request = app.current_request
 
     if request.method == "GET":
-        app.log.debug("Getting Images")
+        app.log.debug("Getting an Image metadata")
         return get_image_item(request, image_id)
     if request.method == "PUT":
-        app.log.debug("Upload image")
-        return put_image_item(request, image_id)
+        app.log.debug("Update image metadata")
+        return put_images_item(request, image_id)
 
 
 @app.route('/v1/image/{id}/data', methods=["GET"])
 def image_data(image_id):
     """
-    Routing logic for images  retrieval and post
+    Routing logic for image data with or without bbox
     :return:
     """
     request = app.current_request
 
     if request.method == "GET":
-        app.log.debug("Getting Images")
+        app.log.debug("Getting Image data with optional parameters of bounding box")
         return get_image_item(request, image_id)
 
 
