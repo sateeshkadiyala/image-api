@@ -40,7 +40,7 @@ datashape==0.5.4
 decorator==4.1.2
 distributed==1.18.3
 dj-database-url==0.4.2
-Django==2.0.1
+Django==2.2.13
 django-bootstrap3==9.1.0
 django-crontab==0.7.1
 django-heroku==0.2.0
